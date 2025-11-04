@@ -1,0 +1,389 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://getsolara.dev/images/iconfull.png" rel="icon" media="(prefers-color-scheme: dark)">
+  <title>Solara Executor — Download</title>
+  <meta name="description" content="The official download page for Solara Executor. Select either Bootstrapper or Direct Zip from a provider of your choice.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Solara Executor — Official Download">
+  <meta property="og:description" content="The official download page for Solara Executor. Select either Bootstrapper or Direct Zip from a provider of your choice.">
+  <meta property="og:image" content="https://getsolara.dev/images/downloadpage.png">
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#0b0f18" />
+  <style>
+    /* ===== THEME ===== */
+    :root{
+  /* Near-black surface tones */
+  --bg:#020204;              /* page bg (almost true black) */
+  --bg-2:#07080c;            /* panel bg */
+  --fg:#ececff;              /* text */
+  --muted:#9aa0c3;           /* secondary text (still readable on black) */
+
+  /* Accents (quieter glow) */
+  --accent:#8256ff;
+  --accent-2:#1e7ae6;
+
+  /* Glass + borders (dimmer) */
+  --glass:linear-gradient(180deg, rgba(255,255,255,.030), rgba(255,255,255,.015));
+  --glass-border:rgba(255,255,255,.08);
+  --ring:0 0 0 1px var(--glass-border) inset, 0 0 0 2px rgba(130,86,255,.22);
+
+  /* Motion + radii */
+  --dur:260ms;
+  --bezier:cubic-bezier(.22,.9,.24,1);
+  --r:18px;
+
+  /* Shadow stack (tighter + darker, less color) */
+  --shadow:
+    0 1px 1px rgba(0,0,0,.45),
+    0 10px 26px rgba(0,0,0,.55),
+    0 28px 90px rgba(0,0,0,.60);
+}
+
+
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Inter, "SF Pro Display", Arial, sans-serif;
+      color:var(--fg);
+      background:
+    radial-gradient(900px 600px at 12% -10%, rgba(130,86,255,.06), transparent 60%),
+    radial-gradient(900px 700px at 92% 0%, rgba(30,122,230,.05), transparent 60%),
+    linear-gradient(#020204, #07080c 25%, #040409 75%, #020204 100%);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      overflow-x:hidden;
+    }
+
+    /* Subtle film grain to reduce banding/eye strain */
+    .grain{
+      position:fixed; inset:-50px;
+      pointer-events:none; z-index:-1;
+      background-image:
+        radial-gradient(1px 1px at 25px 35px, rgba(255,255,255,.12) 1px, transparent 1px),
+        radial-gradient(1px 1px at 15px 5px, rgba(255,255,255,.10) 1px, transparent 1px),
+        radial-gradient(1px 1px at 50px 25px, rgba(255,255,255,.08) 1px, transparent 1px),
+        radial-gradient(1px 1px at 35px 45px, rgba(255,255,255,.10) 1px, transparent 1px);
+      background-size:64px 64px;
+      opacity:.16;
+  filter:contrast(115%) saturate(105%);
+      animation:grainShift 6s linear infinite;
+    }
+    @keyframes grainShift { to { transform:translate3d(-32px,-32px,0) } }
+
+    /* Top bar (small, static) */
+    .topbar{
+      position:sticky; top:0; z-index:10; height:64px;
+      display:flex; align-items:center; justify-content:center;
+     background:linear-gradient(to bottom, rgba(2,2,4,.75), transparent);
+      border-bottom:1px solid rgba(255,255,255,.035);
+      backdrop-filter:blur(8px) saturate(120%);
+    }
+    .brand-logo{ height:24px; width:auto; display:block; filter:drop-shadow(0 6px 16px rgba(130,86,255,.38)); }
+
+    /* Layout */
+    .wrap{ max-width:980px; margin:40px auto; padding:0 16px; }
+
+    .card{
+       border:1px solid var(--glass-border);
+      background:var(--glass);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+       backdrop-filter: blur(16px) saturate(130%);
+    }
+    .card-inner{ padding:26px; text-align:center; }
+
+    .title{ color:var(--fg);font-size: clamp(26px, 3.4vw, 36px); font-weight:800; margin:2px 0 8px; letter-spacing:.01em; }
+    .subtitle{ color:var(--muted); color:var(--muted); margin:0 0 20px; font-size:14.5px; }
+
+    /* Grid */
+    .row{ display:grid; gap:14px; grid-template-columns:repeat(1,minmax(0,1fr)); justify-items:center; }
+    @media (min-width:720px){ .row{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+
+    /* Primary options (smaller by default, grow on hover) */
+    .option{
+      --lift: translateY(-2px) scale(1.02);
+      position:relative; overflow:hidden; isolation:isolate;
+      display:flex; flex-direction:column; align-items:center; gap:8px;
+      padding:18px 18px; min-height:96px; width:100%; max-width:420px;
+      border-radius:16px; border:1px solid var(--glass-border);
+      background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.012));
+      box-shadow:var(--shadow); cursor:pointer; color:var(--fg);
+      transition: transform var(--dur) var(--bezier), box-shadow var(--dur) var(--bezier), background var(--dur) var(--bezier);
+    }
+    .option::before{ /* soft edge neon */
+      content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:-1;
+      background:radial-gradient(60% 140% at 50% -20%, rgba(130,86,255,.14), transparent 60%);
+      opacity:.0; transition:opacity var(--dur) var(--bezier);
+    }
+    .option:hover{ transform:var(--lift); box-shadow:0 10px 26px rgba(0,0,0,.58), 0 2px 10px rgba(0,0,0,.6); }
+    .option:hover::before{ opacity:.55; }
+    .option:active{ transform:translateY(0) scale(.997); }
+
+    /* Extra emphasis for Bootstrapper */
+    #btn-bootstrapper.option{ border-color:rgba(145,92,255,.25); }
+    #btn-bootstrapper.option:hover{ transform: translateY(-3px) scale(1.035); box-shadow:0 16px 40px rgba(145,92,255,.38), 0 4px 16px rgba(0,0,0,.63); }
+
+    .badge{
+      font-size:11.5px; padding:4px 9px; border-radius:999px;
+      background:rgba(145,92,255,.22); border:1px solid rgba(255,255,255,.18);
+      letter-spacing:.04em; font-weight:800; text-transform:uppercase;
+    }
+    .badge.glow{ box-shadow:0 0 0 4px rgba(145,92,255,.08), 0 0 24px rgba(145,92,255,.25) inset; }
+
+    .label{ font-weight:800; font-size:17px; letter-spacing:.02em; }
+    .desc{ color:var(--muted); font-size:13px; line-height:1.35; }
+
+    /* Fade states */
+    .fade{ opacity:1; transform:translateY(0); transition:opacity var(--dur) var(--bezier), transform var(--dur) var(--bezier); }
+    .fade.hide{ opacity:0; transform:translateY(6px); pointer-events:none; }
+
+    /* Vendors */
+    .vendors{ display:none; }
+    .vendors.show{ display:block; }
+    .vendors-head{ display:flex; align-items:center; justify-content:center; gap:16px; margin:4px 0 14px; }
+    .vendors-head h3{ margin:0; font-size:18px; letter-spacing:.02em; font-weight:900; }
+
+    .back{
+      appearance:none; border:1px solid var(--glass-border);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      color:var(--fg); border-radius:12px; padding:10px 14px; cursor:pointer;
+      transition:transform var(--dur) var(--bezier), box-shadow var(--dur) var(--bezier);
+      box-shadow:var(--shadow);
+    }
+    .back:hover{ transform:translateY(-1px); }
+
+    .vendor-grid{ display:grid; gap:12px; grid-template-columns:repeat(1, minmax(0,1fr)); justify-items:center; }
+    @media (min-width:680px){ .vendor-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+    @media (min-width:920px){ .vendor-grid{ grid-template-columns:repeat(3, minmax(0,1fr)); } }
+
+    .vendor{
+      position:relative; display:flex; align-items:center; justify-content:center;
+      height:86px; width:100%; max-width:420px;
+      border-radius:16px; border:1px solid var(--glass-border);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow); cursor:pointer; color:var(--fg); overflow:hidden;
+      transition:transform var(--dur) var(--bezier), box-shadow var(--dur) var(--bezier), background var(--dur) var(--bezier);
+    }
+    .vendor:hover{ transform:translateY(-3px) scale(1.015); box-shadow:0 14px 34px rgba(145,92,255,.28), 0 4px 14px rgba(0,0,0,.6); }
+    .vendor:active{ transform:translateY(0) scale(.998); }
+    .logo{ max-width:78%; max-height:60px; object-fit:contain; display:block; filter:drop-shadow(0 4px 10px rgba(0,0,0,.55)); }
+    .muted{ color:var(--muted); font-size:13px; }
+
+    /* Disabled vendor */
+    .vendor.disabled{ position:relative; pointer-events:none; opacity:.65; filter:saturate(.78); }
+    .vendor.disabled .coming{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      background:rgba(5,6,10,.55); backdrop-filter:blur(4px) saturate(120%);
+      border-radius:16px; border:1px solid var(--glass-border);
+      font-weight:900; letter-spacing:.12em; font-size:13.5px; color:var(--fg);
+      text-shadow:0 2px 10px rgba(145,92,255,.45);
+    }
+
+    /* Modal */
+    .overlay{ position:fixed; inset:0; background:rgba(2,3,6,.62); backdrop-filter:blur(7px) saturate(130%); display:none; align-items:center; justify-content:center; z-index:60; }
+    .overlay.show{ display:flex; }
+    .modal{
+      width:min(560px, 92vw); border:1px solid var(--glass-border); border-radius:18px; padding:20px 20px 18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.03));
+      box-shadow:var(--shadow); text-align:center;
+    }
+    .modal h4{ margin:0 0 8px; font-size:19px; font-weight:900; letter-spacing:.02em; }
+    .modal p{ margin:0 0 14px; color:var(--muted); line-height:1.5; font-size:14px; }
+    .actions{ display:flex; gap:10px; justify-content:center; }
+    .btn{
+      appearance:none; border-radius:12px; padding:11px 14px; font-weight:800; letter-spacing:.02em; cursor:pointer;
+      border:1px solid var(--glass-border); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.025)); color:var(--fg);
+      box-shadow:var(--shadow); transition:transform var(--dur) var(--bezier), box-shadow var(--dur) var(--bezier);
+    }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(145,92,255,.42), rgba(30,139,255,.38)); border-color:rgba(255,255,255,.18);
+    }
+
+    /* Focus styles */
+    :is(.option,.vendor,.back,.btn):focus-visible{ outline:none; box-shadow:var(--ring); }
+
+    /* Motion respect */
+    @media (prefers-reduced-motion:reduce){
+      .option, .vendor, .btn, .back { transition:none }
+      .grain{ animation:none }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar" role="banner">
+    <img class="brand-logo" src="https://getsolara.dev/images/solara.png" alt="Solara logo"/>
+  </header>
+
+  <main class="wrap" id="app" role="main">
+    <section class="card fade" id="chooser">
+      <div class="card-inner">
+        <h1 class="title">Download Solara</h1>
+        <p class="subtitle">Choose a method below. Windows only.</p>
+
+        <div class="row" role="group" aria-label="download methods">
+          <button class="option" id="btn-bootstrapper" aria-label="Bootstrapper (Auto-Updating)">
+            <span class="badge glow">Recommended</span>
+            <div class="label">Bootstrapper (Auto-Updating)</div>
+            <div class="desc">Small installer that keeps Solara up-to-date automatically.</div>
+          </button>
+
+          <button class="option" id="btn-zip" aria-label="Direct Zip (Manual Zip)">
+            <span class="badge" style="background:rgba(30,139,255,.22)">Manual</span>
+            <div class="label">Direct Zip (Manual Zip)</div>
+            <div class="desc">Portable zip. You manage updates yourself.</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card vendors fade" id="vendors" aria-hidden="true">
+      <div class="card-inner">
+        <div class="vendors-head">
+          <button class="back" id="back" aria-label="Back to download methods">← Back</button>
+          <h3 id="vendors-title">Select a download vendor</h3>
+        </div>
+        <div class="vendor-grid" id="vendor-grid" role="list"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Centered modal warning -->
+  <div class="overlay" id="overlay" aria-modal="true" role="dialog" aria-labelledby="modal-title" aria-describedby="warn-text">
+    <div class="modal" role="document">
+      <h4 id="modal-title">Stay Safe</h4>
+      <p id="warn-text">We are not responsible for ads or third-party content. Avoid clicking any unofficial download links or pop-ups not clearly marked as Solara. Continue only if you trust the page.</p>
+      <div class="actions">
+        <button class="btn" id="cancel">Exit</button>
+        <button class="btn primary" id="proceed">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- Config
+    const VENDORS = {
+      bootstrapper: [
+        { name:'Linkvertise', url:'https://linkvertise.com/1208172/solara-bootstrapper?o=sharing', logo:'https://linkvertise.com/assets/img/linkvertise_logo_big.svg', target:'blank', enabled:true },
+        { name:'LootLabs',    url:'https://loot-link.com/s?50Jse8yP', logo:'https://i.imgur.com/7Qob2EZ.png', target:'blank', enabled:true },
+        { name:'Work.ink',    url:'https://workink.net/23YZ/solara-bootstrapper', logo:'https://i.imgur.com/9Sr58LM.png', target:'blank', enabled:true },
+    
+      ],
+      zip: [
+        { name:'Linkvertise', url:'https://direct-link.net/1208172/LMnxIc8zsAGe', logo:'https://linkvertise.com/assets/img/linkvertise_logo_big.svg', target:'blank', enabled:true },
+        { name:'LootLabs',    url:'https://loot-link.com/s?PL5WbLMz', logo:'https://i.imgur.com/7Qob2EZ.png', target:'blank', enabled:true },
+        { name:'Work.ink',    url:'https://workink.net/23YZ/solara-zip', logo:'https://i.imgur.com/9Sr58LM.png', target:'blank', enabled:true },
+      ],
+    };
+
+    // ---- Helpers & Elements
+    const $ = sel => document.querySelector(sel);
+    const chooser = $('#chooser');
+    const vendors = $('#vendors');
+    const grid = $('#vendor-grid');
+    const title = $('#vendors-title');
+    const overlay = $('#overlay');
+    const btnProceed = $('#proceed');
+    const btnCancel = $('#cancel');
+
+    let pendingHref = null; let pendingTarget = '_blank';
+
+    function renderVendors(kind){
+      const list = (VENDORS[kind] || []);
+      grid.innerHTML = '';
+      list.forEach(v => {
+        const a = document.createElement('a');
+        a.className = 'vendor' + (v.enabled === false ? ' disabled' : '');
+        a.href = v.url || '#'; a.target = (v.target === 'self' ? '_self' : '_blank'); a.rel = 'noopener';
+        a.setAttribute('role', 'listitem'); a.setAttribute('aria-label', v.name);
+
+        if(v.logo){
+          const img = document.createElement('img');
+          img.className = 'logo'; img.alt = v.name + ' logo'; img.src = v.logo;
+          a.appendChild(img);
+        } else {
+          a.textContent = v.name;
+        }
+
+        if(v.enabled === false){
+          const cover = document.createElement('div');
+          cover.className = 'coming';
+          cover.textContent = 'COMING SOON';
+          a.appendChild(cover);
+        } else {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            pendingHref = v.url; pendingTarget = (v.target === 'self' ? '_self' : '_blank');
+            openModal();
+          });
+        }
+        grid.appendChild(a);
+      });
+
+      if(list.length === 0){
+        const empty = document.createElement('div');
+        empty.className = 'muted';
+        empty.textContent = 'No vendors available.';
+        grid.appendChild(empty);
+      }
+    }
+
+    function go(kind){
+      title.textContent = (kind === 'bootstrapper')
+        ? 'Choose a vendor — Bootstrapper (Auto-Updating)'
+        : 'Choose a vendor — Direct Zip (Manual Zip)';
+
+      vendors.setAttribute('aria-hidden', 'false');
+      chooser.classList.add('hide');
+      setTimeout(() => {
+        chooser.style.display = 'none';
+        vendors.classList.add('show'); vendors.classList.remove('hide');
+        renderVendors(kind);
+      }, 220);
+    }
+
+    function back(){
+      vendors.classList.add('hide');
+      vendors.setAttribute('aria-hidden', 'true');
+      setTimeout(() => {
+        vendors.classList.remove('show');
+        chooser.style.display = 'block';
+        requestAnimationFrame(() => chooser.classList.remove('hide'));
+      }, 200);
+    }
+
+    function openModal(){
+      overlay.classList.add('show');
+      btnProceed.focus({ preventScroll:true });
+    }
+    function closeModal(){ overlay.classList.remove('show'); }
+
+    btnProceed.addEventListener('click', () => {
+      if(pendingHref){ window.open(pendingHref, pendingTarget); }
+      closeModal();
+    });
+    btnCancel.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+    window.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+    $('#btn-bootstrapper').addEventListener('click', () => go('bootstrapper'));
+    $('#btn-zip').addEventListener('click', () => go('zip'));
+    $('#back').addEventListener('click', back);
+
+    // Keyboard activation for cards
+    ;['btn-bootstrapper','btn-zip'].forEach(id => {
+      const el = document.getElementById(id);
+      el.setAttribute('tabindex','0');
+      el.addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); el.click(); }
+      });
+    });
+  </script>
+<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3e4caf6cae974df2bb260d6cb87ed4c1"}'></script><!-- Cloudflare Pages Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"d9a18b5f5e724b8aa6d569cb03e43341","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
